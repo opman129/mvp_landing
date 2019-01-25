@@ -33,8 +33,8 @@ class UserMembership(models.Model):
 
 def post_save_usermembership_create(sender, instance, created, *args, **kwargs):
     if created:
-        UserMembership.objects.get_or_created(user=instance)
-    user_membership, created = UserMembership.objects.get_or_created(user=instance)
+        UserMembership.objects.get(user=instance)
+    user_membership, created = UserMembership.objects.get(user=instance)
 
     if user_membership.stripe_customer_id is None or user_membership.strip_customer_id is '':
         new_customer_id = strip.Customer.create(email=instance.email)
